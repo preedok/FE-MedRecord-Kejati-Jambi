@@ -77,9 +77,11 @@ const router = createBrowserRouter(
 
             {/* Area pasien */}
             <Route element={<ProtectedRoute />}>
-                <Route element={<MainLayout title="Dashboard Pasien" />}>
-                    <Route path="/dashboard-pasien" element={<MyRecordsPage />} />
-                    <Route path="/my-records" element={<MyRecordsPage />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route element={<MainLayout title="Dashboard Pasien" />}>
+                        <Route path="/dashboard-pasien" element={<DashboardPage />} />
+                        <Route path="/my-records" element={<MyRecordsPage />} />
+                    </Route>
                 </Route>
             </Route>
 
