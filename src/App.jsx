@@ -19,6 +19,11 @@ const AppContent = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [activeMenu, setActiveMenu] = useState('dashboard');
 
+    // If not logged in, show login page
+    if (!currentUser) {
+        return <LoginPage />;
+    }
+
     const handleLogout = () => {
         if (window.confirm('Apakah Anda yakin ingin keluar?')) {
             logout();
@@ -40,9 +45,11 @@ const AppContent = () => {
                 break;
             case 'schedule':
                 // Handle schedule
+                alert('Fitur jadwal akan segera hadir!');
                 break;
             case 'export':
                 // Handle export
+                alert('Fitur export akan segera hadir!');
                 break;
             default:
                 break;
@@ -80,18 +87,14 @@ const AppContent = () => {
         }
     };
 
-    if (!currentUser) {
-        return <LoginPage />;
-    }
-
     return (
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen bg-gray-50 overflow-hidden">
             {/* Sidebar */}
             <Sidebar
                 isOpen={sidebarOpen}
                 activeMenu={activeMenu}
                 onMenuClick={handleMenuClick}
-                userRole={currentUser.role}
+                onLogout={handleLogout}
             />
 
             {/* Main Content */}
@@ -99,13 +102,12 @@ const AppContent = () => {
                 {/* Header */}
                 <Header
                     title={getPageTitle()}
-                    user={currentUser}
+                    sidebarOpen={sidebarOpen}
                     onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-                    onLogout={handleLogout}
                 />
 
                 {/* Page Content */}
-                <main className="flex-1 overflow-y-auto p-6">
+                <main className="flex-1 overflow-y-auto p-8 bg-gray-50">
                     {renderPage()}
                 </main>
             </div>
@@ -114,7 +116,7 @@ const AppContent = () => {
 };
 
 // Main App Component with Providers
-const App = () => {
+function App() {
     return (
         <AuthProvider>
             <PatientProvider>
@@ -124,6 +126,6 @@ const App = () => {
             </PatientProvider>
         </AuthProvider>
     );
-};
+}
 
 export default App;
