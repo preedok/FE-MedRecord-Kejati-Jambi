@@ -12,9 +12,9 @@ const Header = ({ title, sidebarOpen, onToggleSidebar }) => {
                         className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                     >
                         {sidebarOpen ? (
-                            <X className="w-6 h-6 text-gray-600" />
-                        ) : (
                             <Menu className="w-6 h-6 text-gray-600" />
+                        ) : (
+                            <X className="w-6 h-6 text-gray-600" />
                         )}
                     </button>
                     <div>

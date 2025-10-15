@@ -1,35 +1,47 @@
 import React from 'react';
-import { Activity, Users, FileText, ClipboardList, LogOut, Stethoscope, User } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import {
+    Activity,
+    Users,
+    FileText,
+    ClipboardList,
+    LogOut,
+    Stethoscope,
+    User,
+} from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import logo from '../../assets/logo-kejaksaan.png'
+import logo from '../../assets/logo-kejaksaan.png';
+
 const iconMap = {
     Activity,
     Users,
     FileText,
     ClipboardList,
     Stethoscope,
-    User
+    User,
 };
 
-const Sidebar = ({ isOpen, activeMenu, onMenuClick, onLogout }) => {
+const Sidebar = ({ isOpen, onLogout }) => {
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
+    if (!isOpen) return null;
+
+    // Menu berdasarkan role
     const adminMenu = [
-        { id: 'dashboard', label: 'Dashboard', icon: 'Activity' },
-        { id: 'patients', label: 'Data Pasien', icon: 'Users' },
-        { id: 'records', label: 'Rekam Medis', icon: 'FileText' },
-        { id: 'poli-umum', label: 'Poli Umum', icon: 'ClipboardList' },
-        { id: 'poli-gigi', label: 'Poli Gigi', icon: 'ClipboardList' }
+        { path: '/', label: 'Dashboard', icon: 'Activity' },
+        { path: '/patients', label: 'Data Pasien', icon: 'Users' },
+        { path: '/records', label: 'Rekam Medis', icon: 'FileText' },
+        { path: '/poli-umum', label: 'Poli Umum', icon: 'ClipboardList' },
+        { path: '/poli-gigi', label: 'Poli Gigi', icon: 'ClipboardList' },
     ];
 
     const patientMenu = [
-        { id: 'dashboard', label: 'Dashboard', icon: 'Activity' },
-        { id: 'my-records', label: 'Rekam Medis Saya', icon: 'FileText' }
+        { path: '/', label: 'Dashboard', icon: 'Activity' },
+        { path: '/my-records', label: 'Rekam Medis Saya', icon: 'FileText' },
     ];
 
     const menuItems = currentUser?.role === 'admin' ? adminMenu : patientMenu;
-
-    if (!isOpen) return null;
 
     return (
         <div className="w-72 gradient-bg-primary text-white h-screen overflow-y-auto rounded-tr-[58px] rounded-br-[58px]">
@@ -38,8 +50,7 @@ const Sidebar = ({ isOpen, activeMenu, onMenuClick, onLogout }) => {
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-emerald-500 rounded-xl flex items-center justify-center">
-                            {/* <Activity className="w-7 h-7" /> */}
-                            <img src={logo} alt="" />
+                            <img src={logo} alt="Logo" />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold">Kejati Jambi</h1>
@@ -70,26 +81,33 @@ const Sidebar = ({ isOpen, activeMenu, onMenuClick, onLogout }) => {
                 {/* Navigation */}
                 <nav className="space-y-2">
                     {menuItems.map((item) => {
-                        const IconComponent = iconMap[item.icon];
+                        const Icon = iconMap[item.icon];
                         return (
-                            <button
-                                key={item.id}
-                                onClick={() => onMenuClick(item.id)}
-                                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${activeMenu === item.id
-                                    ? 'bg-white/20 shadow-lg'
-                                    : 'hover:bg-white/10'
-                                    }`}
+                            <NavLink
+                                key={item.path}
+                                to={item.path}
+                                className={({ isActive }) =>
+                                    `w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${isActive
+                                        ? 'bg-white/20 shadow-lg'
+                                        : 'hover:bg-white/10'
+                                    }`
+                                }
                             >
-                                <IconComponent className="w-5 h-5" />
+                                <Icon className="w-5 h-5" />
                                 <span className="font-medium">{item.label}</span>
-                            </button>
+                            </NavLink>
                         );
                     })}
                 </nav>
 
                 {/* Logout Button */}
                 <button
-                    onClick={onLogout}
+                    onClick={() => {
+                        if (window.confirm('Yakin ingin keluar?')) {
+                            onLogout();
+                            navigate('/login');
+                        }
+                    }}
                     className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-red-500/20 transition-all mt-8 border border-red-400/30"
                 >
                     <LogOut className="w-5 h-5" />
