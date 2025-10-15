@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Eye } from 'lucide-react';
-import { usePatients } from '../context/PatientContext';
-import { SearchBar, Button, Modal, Input, Select, Badge } from '../components/common';
-import { getInitials } from '../utils/formatters';
-import { GENDER_OPTIONS } from '../utils/constants';
+import { usePatients } from '../../context/PatientContext';
+import { SearchBar, Button, Modal, Input, Select, Badge } from '../../components/common';
+import { getInitials } from '../../utils/formatters';
+import { GENDER_OPTIONS } from '../../utils/constants';
 
 const PatientsPage = () => {
     const { patients, addPatient, updatePatient, deletePatient } = usePatients();

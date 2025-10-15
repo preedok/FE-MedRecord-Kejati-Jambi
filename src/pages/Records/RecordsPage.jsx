@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Eye, Filter } from 'lucide-react';
-import { usePatients } from '../context/PatientContext';
-import { useRecords } from '../context/RecordContext';
-import { SearchBar, Button, Modal, Input, Select, Textarea, Badge } from '../components/common';
-import { formatDate, getInitials } from '../utils/formatters';
-import { POLI_LABELS } from '../utils/constants';
+import { usePatients } from '../../context/PatientContext';
+import { useRecords } from '../../context/RecordContext';
+import { SearchBar, Button, Modal, Input, Select, Textarea, Badge } from '../../components/common';
+import { formatDate, getInitials } from '../../utils/formatters';
+import { POLI_LABELS } from '../../utils/constants';
 
 const RecordsPage = () => {
     const { patients } = usePatients();

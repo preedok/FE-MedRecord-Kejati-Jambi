@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Stethoscope, User, ArrowLeft, Lock, Mail } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import logo from '../assets/logo-kejaksaan.png';
+import { useAuth } from '../../context/AuthContext';
+import logo from '../../assets/logo-kejaksaan.png';
 
 const LoginPage = ({ onLoginSuccess }) => {
     const { login } = useAuth();

@@ -1,8 +1,8 @@
 // src/pages/index.js
-export { default as LoginPage } from './LoginPage';
-export { default as DashboardPage } from './DashboardPage';
-export { default as PatientsPage } from './PatientsPage';
-export { default as RecordsPage } from './RecordsPage';
-export { default as PoliUmumPage } from './PoliUmumPage';
-export { default as PoliGigiPage } from './PoliGigiPage';
-export { default as MyRecordsPage } from './MyRecordsPage';
+export { default as LoginPage } from '../pages/Login/LoginPage';
+export { default as DashboardPage } from '../pages/Dashboard/DashboardPage';
+export { default as PatientsPage } from '../pages/Patients/PatientsPage';
+export { default as RecordsPage } from '../pages/MyRecord/MyRecordsPage';
+export { default as PoliUmumPage } from './PoliUmum/PoliUmumPage';
+export { default as PoliGigiPage } from './../pages/PoliGigi/PoliGigiPage';
+export { default as MyRecordsPage } from '../pages/MyRecord/MyRecordsPage';

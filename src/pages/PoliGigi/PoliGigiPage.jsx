@@ -1,6 +1,6 @@
 import React from 'react';
 import { ClipboardList, Calendar, Users, TrendingUp } from 'lucide-react';
-import Card from '../components/common/Card';
+import Card from '../../components/common/Card';
 
 const PoliGigiPage = () => {
     return (

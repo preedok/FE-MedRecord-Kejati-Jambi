@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { usePatients } from '../context/PatientContext';
-import { useRecords } from '../context/RecordContext';
-import RecordsPage from './RecordsPage';
+import { usePatients } from '../../context/PatientContext';
+import { useRecords } from '../../context/RecordContext';
+import RecordsPage from '../MyRecord/MyRecordsPage';
 
 const PoliUmumPage = () => {
     // Simply use RecordsPage with filter preset to 'umum'

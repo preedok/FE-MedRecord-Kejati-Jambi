@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { usePatients } from '../context/PatientContext';
-import { useRecords } from '../context/RecordContext';
+import { useAuth } from '../../context/AuthContext';
+import { usePatients } from '../../context/PatientContext';
+import { useRecords } from '../../context/RecordContext';
 import {
     WelcomeBanner,
     DashboardSummary,
@@ -9,8 +9,8 @@ import {
     QuickActions,
     RecentPatients,
     ChartWidget
-} from '../components/dashboard';
-import Card from '../components/common/Card';
+} from '../../components/dashboard';
+import Card from '../../components/common/Card';
 
 const DashboardPage = ({ onNavigate, onQuickAction }) => {
     const { currentUser } = useAuth();
