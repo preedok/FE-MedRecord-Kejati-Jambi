@@ -1,4 +1,5 @@
 // src/pages/index.js
+export { default as LandingPage } from './Login/LoginPage/LandingPage';
 export { default as LoginPage } from './Login/LoginPage/LoginPage';
 export { default as DashboardPage } from '../pages/Dashboard/DashboardPage';
 export { default as PatientsPage } from '../pages/Patients/PatientsPage';

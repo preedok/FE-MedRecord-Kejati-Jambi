@@ -9,12 +9,9 @@ import {
 } from "react-router-dom";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import { PatientProvider } from "./context/PatientContext";
-import { RecordProvider } from "./context/RecordContext";
 import { Sidebar, Header } from "./components/layout";
 
 import {
-    LandingPage,
     LoginPage,
     DashboardPage,
     PatientsPage,
@@ -23,6 +20,7 @@ import {
     PoliGigiPage,
     MyRecordsPage,
 } from "./pages";
+
 
 // ✅ Komponen proteksi login
 const ProtectedRoute = () => {
@@ -53,23 +51,18 @@ const MainLayout = ({ title }) => {
     );
 };
 
-// ✅ Definisi router baru
+// ✅ Definisi router baru (tanpa PatientProvider dan RecordProvider)
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route
             element={
                 <AuthProvider>
-                    <PatientProvider>
-                        <RecordProvider>
-                            <Outlet />
-                        </RecordProvider>
-                    </PatientProvider>
+                    <Outlet />
                 </AuthProvider>
             }
         >
             {/* Halaman awal & login */}
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<LoginPage />} />
 
             {/* Area admin/dokter */}
             <Route element={<ProtectedRoute />}>
@@ -95,6 +88,7 @@ const router = createBrowserRouter(
         </Route>
     )
 );
+
 
 // ✅ Komponen utama router provider
 export default function AppRouter() {

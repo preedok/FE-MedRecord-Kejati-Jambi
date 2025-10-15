@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { User, Calendar, FileText, Eye } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { usePatients } from '../../context/PatientContext';
-import { useRecords } from '../../context/RecordContext';
+import { usePatients } from '../Patients/hooks/usePatients';
+import { useRecords } from '../Records/hooks/useRecords';
 import { formatDate } from '../../utils/formatters';
 import { Badge, Card, Modal } from '../../components/common';
 import { POLI_LABELS } from '../../utils/constants';

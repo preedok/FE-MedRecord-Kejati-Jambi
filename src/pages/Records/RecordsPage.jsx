@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Eye, Filter } from 'lucide-react';
-import { usePatients } from '../../context/PatientContext';
-import { useRecords } from '../../context/RecordContext';
+import { usePatients } from './hooks/usePatients';
+import { useRecords } from './hooks/useRecords';
 import { SearchBar, Button, Modal, Input, Select, Textarea, Badge } from '../../components/common';
 import { formatDate, getInitials } from '../../utils/formatters';
 import { POLI_LABELS } from '../../utils/constants';

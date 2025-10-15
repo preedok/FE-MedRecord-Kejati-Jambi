@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Eye } from 'lucide-react';
-import { usePatients } from '../../context/PatientContext';
+import { usePatients } from './hooks/usePatients';
 import { SearchBar, Button, Modal, Input, Select, Badge } from '../../components/common';
 import { getInitials } from '../../utils/formatters';
 import { GENDER_OPTIONS } from '../../utils/constants';
@@ -86,10 +86,7 @@ const PatientsPage = () => {
                     placeholder="Cari pasien..."
                     className="w-full md:w-96"
                 />
-                <Button
-                    icon={Plus}
-                    onClick={() => handleOpenModal('add')}
-                >
+                <Button icon={Plus} onClick={() => handleOpenModal('add')}>
                     Tambah Pasien
                 </Button>
             </div>
@@ -170,9 +167,11 @@ const PatientsPage = () => {
                 isOpen={showModal}
                 onClose={handleCloseModal}
                 title={
-                    modalMode === 'add' ? 'Tambah Pasien Baru' :
-                        modalMode === 'edit' ? 'Edit Data Pasien' :
-                            'Detail Pasien'
+                    modalMode === 'add'
+                        ? 'Tambah Pasien Baru'
+                        : modalMode === 'edit'
+                            ? 'Edit Data Pasien'
+                            : 'Detail Pasien'
                 }
                 size="lg"
             >
@@ -226,7 +225,6 @@ const PatientsPage = () => {
                                 required
                             />
                         </div>
-
                         <Select
                             label="Jenis Kelamin"
                             name="jenisKelamin"
@@ -235,7 +233,6 @@ const PatientsPage = () => {
                             options={GENDER_OPTIONS}
                             required
                         />
-
                         <Input
                             label="No. Telepon"
                             name="noTelp"
@@ -244,7 +241,6 @@ const PatientsPage = () => {
                             onChange={handleInputChange}
                             placeholder="08123456789"
                         />
-
                         <Input
                             label="Email"
                             name="email"
@@ -253,7 +249,6 @@ const PatientsPage = () => {
                             onChange={handleInputChange}
                             placeholder="email@example.com"
                         />
-
                         <Input
                             label="Alamat Lengkap"
                             name="alamat"
@@ -262,13 +257,8 @@ const PatientsPage = () => {
                             placeholder="Masukkan alamat lengkap"
                             required
                         />
-
                         <div className="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">
-                            <Button
-                                type="button"
-                                variant="secondary"
-                                onClick={handleCloseModal}
-                            >
+                            <Button type="button" variant="secondary" onClick={handleCloseModal}>
                                 Batal
                             </Button>
                             <Button type="submit">

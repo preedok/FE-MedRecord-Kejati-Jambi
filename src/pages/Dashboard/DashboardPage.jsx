@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { usePatients } from '../../context/PatientContext';
-import { useRecords } from '../../context/RecordContext';
+import { usePatients } from '../Patients/hooks/usePatients';
+import { useRecords } from '../Records/hooks/useRecords';
 import {
     WelcomeBanner,
     DashboardSummary,

@@ -1,16 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
-
-const PatientContext = createContext();
+import { useState } from 'react';
 
 export const usePatients = () => {
-    const context = useContext(PatientContext);
-    if (!context) {
-        throw new Error('usePatients must be used within a PatientProvider');
-    }
-    return context;
-};
-
-export const PatientProvider = ({ children }) => {
     const [patients, setPatients] = useState([
         {
             id: 1,
@@ -46,18 +36,22 @@ export const PatientProvider = ({ children }) => {
             ...patientData,
             id: Date.now()
         };
-        setPatients([...patients, newPatient]);
+        setPatients(prevPatients => [...prevPatients, newPatient]);
         return newPatient;
     };
 
     const updatePatient = (id, patientData) => {
-        setPatients(patients.map(patient =>
-            patient.id === id ? { ...patient, ...patientData } : patient
-        ));
+        setPatients(prevPatients =>
+            prevPatients.map(patient =>
+                patient.id === id ? { ...patient, ...patientData } : patient
+            )
+        );
     };
 
     const deletePatient = (id) => {
-        setPatients(patients.filter(patient => patient.id !== id));
+        setPatients(prevPatients =>
+            prevPatients.filter(patient => patient.id !== id)
+        );
     };
 
     const getPatientById = (id) => {
@@ -71,7 +65,7 @@ export const PatientProvider = ({ children }) => {
         );
     };
 
-    const value = {
+    return {
         patients,
         addPatient,
         updatePatient,
@@ -79,10 +73,4 @@ export const PatientProvider = ({ children }) => {
         getPatientById,
         searchPatients
     };
-
-    return (
-        <PatientContext.Provider value={value}>
-            {children}
-        </PatientContext.Provider>
-    );
 };
