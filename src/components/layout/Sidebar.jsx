@@ -27,9 +27,15 @@ const Sidebar = ({ isOpen, onLogout }) => {
 
     if (!isOpen) return null;
 
+    // Path dashboard berdasarkan role
+    const dashboardPath =
+        currentUser?.role === 'admin'
+            ? '/dashboard-dokter'
+            : '/dashboard-pasien';
+
     // Menu berdasarkan role
     const adminMenu = [
-        { path: '/', label: 'Dashboard', icon: 'Activity' },
+        { path: dashboardPath, label: 'Dashboard', icon: 'Activity' },
         { path: '/patients', label: 'Data Pasien', icon: 'Users' },
         { path: '/records', label: 'Rekam Medis', icon: 'FileText' },
         { path: '/poli-umum', label: 'Poli Umum', icon: 'ClipboardList' },
@@ -37,7 +43,7 @@ const Sidebar = ({ isOpen, onLogout }) => {
     ];
 
     const patientMenu = [
-        { path: '/', label: 'Dashboard', icon: 'Activity' },
+        { path: dashboardPath, label: 'Dashboard', icon: 'Activity' },
         { path: '/my-records', label: 'Rekam Medis Saya', icon: 'FileText' },
     ];
 
