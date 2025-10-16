@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { usePatients } from '../Patients/hooks/usePatients';
 import { useRecords } from '../Records/hooks/useRecords';
@@ -12,7 +13,8 @@ import {
 } from '../../components/dashboard';
 import Card from '../../components/common/Card';
 
-const DashboardPage = ({ onNavigate, onQuickAction }) => {
+const DashboardPage = () => {
+    const navigate = useNavigate();
     const { currentUser } = useAuth();
     const { patients } = usePatients();
     const { medicalRecords } = useRecords();
@@ -51,8 +53,37 @@ const DashboardPage = ({ onNavigate, onQuickAction }) => {
         { label: 'Mei', value: 55 }
     ];
 
+    // Handle quick actions navigation
+    const handleQuickAction = (action) => {
+        switch (action) {
+            case 'addPatient':
+                navigate('/patients');
+                break;
+            case 'addRecord':
+                navigate('/patients'); // Navigate ke halaman patients untuk input rekam medis
+                break;
+            case 'poliUmum':
+                navigate('/poli-umum');
+                break;
+            case 'poliGigi':
+                navigate('/poli-gigi');
+                break;
+            default:
+                break;
+        }
+    };
+
     const handleViewPatient = (patientId) => {
-        onNavigate('patients');
+        navigate('/patients');
+    };
+
+    // Handle activity click based on user role
+    const handleActivityClick = (activityId) => {
+        if (currentUser.role === 'pasien') {
+            navigate('/my-records');
+        } else {
+            navigate('/records');
+        }
     };
 
     return (
@@ -65,13 +96,16 @@ const DashboardPage = ({ onNavigate, onQuickAction }) => {
             />
 
             {/* Stats Summary */}
-            <DashboardSummary stats={stats} />
+            <DashboardSummary
+                stats={stats}
+                onRecordsClick={() => navigate('/records')}
+            />
 
             {/* Quick Actions - Admin Only */}
             {currentUser.role === 'admin' && (
                 <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-4">Aksi Cepat</h3>
-                    <QuickActions onAction={onQuickAction} />
+                    <QuickActions onAction={handleQuickAction} />
                 </div>
             )}
 
@@ -81,7 +115,10 @@ const DashboardPage = ({ onNavigate, onQuickAction }) => {
                 <div className="lg:col-span-2">
                     <Card>
                         <h3 className="text-xl font-bold text-gray-800 mb-4">Aktivitas Terbaru</h3>
-                        <ActivityList activities={activities} />
+                        <ActivityList
+                            activities={activities}
+                            onActivityClick={handleActivityClick}
+                        />
                     </Card>
                 </div>
 
@@ -130,6 +167,7 @@ const DashboardPage = ({ onNavigate, onQuickAction }) => {
                                     poli: record.poli,
                                     tanggal: record.tanggal
                                 }))}
+                                onActivityClick={() => navigate('/my-records')}
                             />
                         ) : (
                             <div className="text-center py-8 text-gray-500">
